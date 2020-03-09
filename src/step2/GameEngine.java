@@ -1,4 +1,4 @@
-package GUI;
+package step2;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -60,7 +60,10 @@ public class GameEngine {
 	}
 
 
-	//解答製作用メソッドmakeAnswers
+
+
+	//*************************************************************************************
+	//解答製作用メソッドmakeAnswer
 	public void makeAnswer(){
 		List<Integer> list = new ArrayList<Integer>();
 
@@ -81,15 +84,104 @@ public class GameEngine {
 	}
 
 
+
+
+	//**************************************************************************************
 	//入力受付用メソッドinputAnswer
     public void inputAnswer(int index, int answer)throws InputException {
 		if (index > -1 && index < numberOfAnswers) {
-		if (answer > 0 && answer <= widthOfRandom) {
-		input[index] = answer;
-		} else {
-		throw new InputException("入力が答えの範囲外です");
+			if (answer > 0 && answer <= widthOfRandom) {
+				input[index] = answer;
+			} else {
+				throw new InputException("入力が答えの範囲は１～" + widthOfRandom + "です");
+			}
+		}else {
+			throw new InputException("入力する場所を間違っています");
 		}
-		}	//判定処理用メソッドjudge
+    }
+
+
+    //**************************************************************************************
+    //判定処理用メソッドjudge
+    //正解ならtrueを返す
+    //不正解ならfalseを返し、hit数、blow数を判定・表示する。
+    //
+    public  boolean judge(){
+    	hit = 0;
+    	blow = 0;
+    	for(int i = 0; i < numberOfAnswers; i++) {
+    		if(answer[i] == input[i]) {
+    			hit++;
+    		}else {
+    			for(int j = 0; j < numberOfAnswers; j++) {
+    				if(answer[i] == input[j]) {
+    					blow++;
+    				}
+    			}
+    		}
+    	}return (hit == numberOfAnswers);
+    }
+
+
+    public String getTitle() {
+    	return title;
+    }
+
+    public void setTitle(String title) {
+    	this.title = title;
+    }
+
+    public String getRule() {
+    	return rule;
+    }
+
+    public void setRule(String rule) {
+    	this.rule = rule;
+    }
+
+    public int[] getAnswer() {
+    	return answer;
+    }
+
+    public int[] getInput() {
+    	return input;
+    }
+
+    public int getNumberOfAnswers() {
+    	return numberOfAnswers;
+    }
+
+    public int getWidthOfRandom() {
+    	return widthOfRandom;
+    }
+
+    public int getHit() {
+    	return hit;
+    }
+
+    public int getBlow() {
+    	return blow;
+    }
+
+    public void setInput(int[] input) {
+    	for(int i = 0; i > numberOfAnswers; i++) {
+    		this.input[i] = input[i];
+    	}
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 }
